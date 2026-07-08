@@ -23,7 +23,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       # Auto-detect the correct base path from the repo name:
       #   <user>.github.io  -> served at root, BASE_PATH=''
@@ -38,7 +37,7 @@ jobs:
           fi
           echo "Repo: $REPO_NAME -> BASE_PATH='${BASE_PATH}'"
 
-      - run: npm ci
+      - run: npm install
 
       - run: npm run build
         env:
