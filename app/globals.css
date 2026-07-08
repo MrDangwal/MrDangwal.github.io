@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink text-snow font-body antialiased;
+  background-image: radial-gradient(
+    ellipse 80% 50% at 50% -10%,
+    rgba(147, 38, 103, 0.14),
+    transparent 70%
+  );
+}
+
+::selection {
+  background: rgba(252, 165, 10, 0.28);
+}
+
+/* --- inferno gradient text, used sparingly --- */
+.text-inferno {
+  background: linear-gradient(100deg, #932667 0%, #dd513a 45%, #fca50a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* --- log-line eyebrow before each section title --- */
+.eyebrow {
+  @apply font-mono text-xs tracking-wider text-fog;
+}
+.eyebrow::before {
+  content: '>>> ';
+  color: #dd513a;
+}
+
+/* --- scroll reveal --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- card hover: edge lights up like an activation --- */
+.card {
+  @apply rounded-xl border border-edge bg-panel/80 backdrop-blur-sm transition-colors duration-300;
+}
+.card:hover {
+  border-color: rgba(221, 81, 58, 0.45);
+}
+
+/* keyboard focus that's actually visible */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #fca50a;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

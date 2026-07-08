@@ -1,0 +1,63 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Auto-detect the correct base path from the repo name:
+      #   <user>.github.io  -> served at root, BASE_PATH=''
+      #   anything else     -> served at /<repo>, BASE_PATH='/<repo>'
+      - name: Set base path
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          if [[ "$REPO_NAME" == *.github.io ]]; then
+            echo "BASE_PATH=" >> "$GITHUB_ENV"
+          else
+            echo "BASE_PATH=/${REPO_NAME}" >> "$GITHUB_ENV"
+          fi
+          echo "Repo: $REPO_NAME -> BASE_PATH='${BASE_PATH}'"
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          BASE_PATH: ${{ env.BASE_PATH }}
+
+      # Prevent GitHub Pages' Jekyll from ignoring Next's _next/ folder
+      - name: Add .nojekyll
+        run: touch out/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
