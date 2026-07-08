@@ -40,6 +40,13 @@ export default function Footer() {
             >
               LinkedIn ↗
             </a>
+            <a
+              href={profile.resume}
+              download
+              className="rounded-md border border-edge px-5 py-2.5 font-mono text-sm text-snow transition-colors hover:border-amber/50 hover:text-amber"
+            >
+              Resume ↓
+            </a>
           </div>
         </Reveal>
 

@@ -39,6 +39,15 @@ export default function Nav() {
               GitHub ↗
             </a>
           </li>
+          <li>
+            <a
+              href={profile.resume}
+              download
+              className="rounded-md border border-amber/40 px-3 py-1.5 font-mono text-xs text-amber transition-colors hover:border-amber hover:bg-amber/10"
+            >
+              Resume ↓
+            </a>
+          </li>
         </ul>
 
         <button
@@ -64,6 +73,16 @@ export default function Nav() {
               </a>
             </li>
           ))}
+          <li>
+            <a
+              href={profile.resume}
+              download
+              onClick={() => setOpen(false)}
+              className="block py-2 text-sm text-amber"
+            >
+              Resume ↓
+            </a>
+          </li>
         </ul>
       )}
     </header>

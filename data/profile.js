@@ -15,6 +15,7 @@ export const profile = {
   github: 'https://github.com/MrDangwal',
   linkedin: 'https://www.linkedin.com/in/mrdangwal',
   location: 'India',
+  resume: '/Abhishek_Dangwal_Resume.pdf',
 };
 
 // headline numbers pulled straight from the resume
