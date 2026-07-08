@@ -59,6 +59,37 @@ body {
   border-color: rgba(221, 81, 58, 0.45);
 }
 
+/* --- scanner sweep over the About portrait --- */
+.scanline {
+  position: absolute;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(252, 165, 10, 0.1) 40%,
+    rgba(252, 165, 10, 0.3) 50%,
+    rgba(252, 165, 10, 0.1) 60%,
+    transparent
+  );
+  animation: scan 5.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes scan {
+  0% {
+    top: -15%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 105%;
+    opacity: 0;
+  }
+}
+
 /* keyboard focus that's actually visible */
 a:focus-visible,
 button:focus-visible {
@@ -75,5 +106,12 @@ button:focus-visible {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .scanline {
+    animation: none;
+    opacity: 0;
+  }
+  .animate-ping {
+    animation: none;
   }
 }
