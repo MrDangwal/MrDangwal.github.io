@@ -50,9 +50,17 @@ export default function Footer() {
           </div>
         </Reveal>
 
-        <p className="mt-16 font-mono text-xs text-fog/70">
-          © {new Date().getFullYear()} {profile.name} · built with Next.js · deployed on GitHub Pages
-        </p>
+        <div className="mt-16 flex items-center justify-between gap-4">
+          <p className="font-mono text-xs text-fog/70">
+            © {new Date().getFullYear()} {profile.name} · built with Next.js · deployed on GitHub Pages
+          </p>
+          <a
+            href="#top"
+            className="font-mono text-xs text-fog/70 transition-colors hover:text-amber"
+          >
+            [ ↑ top ]
+          </a>
+        </div>
       </div>
     </footer>
   );

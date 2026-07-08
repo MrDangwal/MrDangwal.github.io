@@ -13,14 +13,35 @@ html {
 body {
   @apply bg-ink text-snow font-body antialiased;
   background-image: radial-gradient(
-    ellipse 80% 50% at 50% -10%,
-    rgba(147, 38, 103, 0.14),
-    transparent 70%
-  );
+      ellipse 80% 50% at 50% -10%,
+      rgba(147, 38, 103, 0.14),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 90% 110%,
+      rgba(221, 81, 58, 0.07),
+      transparent 70%
+    );
 }
 
 ::selection {
   background: rgba(252, 165, 10, 0.28);
+}
+
+/* --- thin themed scrollbar --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #1d1d2c;
+  border-radius: 8px;
+  border: 2px solid #06060b;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #932667;
 }
 
 /* --- inferno gradient text, used sparingly --- */
@@ -29,6 +50,31 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* slow shimmer across the gradient name */
+.animate-inferno {
+  background-size: 200% auto;
+  animation: inferno-shift 7s ease-in-out infinite alternate;
+}
+@keyframes inferno-shift {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: 100% center;
+  }
+}
+
+/* --- blinking terminal cursor --- */
+.cursor-blink {
+  color: #fca50a;
+  animation: blink 1.1s steps(2, start) infinite;
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
 }
 
 /* --- log-line eyebrow before each section title --- */
@@ -51,12 +97,85 @@ body {
   transform: none;
 }
 
-/* --- card hover: edge lights up like an activation --- */
+/* --- cards: cursor-tracked glow + lift on hover --- */
 .card {
-  @apply rounded-xl border border-edge bg-panel/80 backdrop-blur-sm transition-colors duration-300;
+  @apply relative overflow-hidden rounded-xl border border-edge bg-panel/80 backdrop-blur-sm;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(252, 165, 10, 0.08),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 .card:hover {
   border-color: rgba(221, 81, 58, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 44px -14px rgba(221, 81, 58, 0.22);
+}
+.card:hover::before {
+  opacity: 1;
+}
+
+/* --- project grid: hovering one card dims its siblings --- */
+.dim-grid > .reveal {
+  transition: opacity 0.3s ease, transform 0.7s ease;
+}
+@media (hover: hover) {
+  .dim-grid:hover > .reveal.is-visible {
+    opacity: 0.45;
+  }
+  .dim-grid:hover > .reveal.is-visible:hover {
+    opacity: 1;
+  }
+}
+
+/* --- cursor spotlight following the pointer across the page --- */
+.spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  background: radial-gradient(
+    600px circle at var(--spot-x, 50%) var(--spot-y, 25%),
+    rgba(147, 38, 103, 0.1),
+    transparent 70%
+  );
+}
+
+/* --- film grain over everything, barely there --- */
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --- tech ticker --- */
+.marquee {
+  animation: marquee 45s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-wrap {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+.marquee-wrap:hover .marquee {
+  animation-play-state: paused;
 }
 
 /* --- scanner sweep over the About portrait --- */
@@ -107,11 +226,23 @@ button:focus-visible {
     transform: none;
     transition: none;
   }
-  .scanline {
+  .scanline,
+  .marquee,
+  .animate-inferno,
+  .cursor-blink {
     animation: none;
+  }
+  .scanline {
     opacity: 0;
   }
-  .animate-ping {
+  .animate-ping,
+  .animate-bounce {
     animation: none;
+  }
+  .card:hover {
+    transform: none;
+  }
+  .spotlight {
+    display: none;
   }
 }

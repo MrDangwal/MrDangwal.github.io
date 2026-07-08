@@ -1,5 +1,6 @@
 import './globals.css';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
+import Ambience from '@/components/Ambience';
 
 const display = Space_Grotesk({ subsets: ['latin'], variable: '--font-display' });
 const body = Inter({ subsets: ['latin'], variable: '--font-body' });
@@ -20,7 +21,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Ambience />
+        {children}
+      </body>
     </html>
   );
 }

@@ -11,15 +11,15 @@ function Job({ job, index }) {
 
   return (
     <Reveal delay={index * 80}>
-      <article className="relative pl-8 sm:pl-10">
+      <article className="group relative pl-8 sm:pl-10">
         {/* timeline spine — a node with a connecting edge, like the network above */}
-        <span className="absolute left-0 top-2 h-3 w-3 rounded-full border-2 border-ember bg-ink" />
+        <span className="absolute left-0 top-2 h-3 w-3 rounded-full border-2 border-ember bg-ink transition-all duration-300 group-hover:border-amber group-hover:shadow-[0_0_12px_rgba(252,165,10,0.5)]" />
         <span className="absolute left-[5px] top-6 h-[calc(100%+2rem)] w-px bg-edge" />
 
         <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <h3 className="font-display text-xl font-medium">{job.company}</h3>
+          <h3 className="font-display text-xl font-medium transition-colors group-hover:text-amber">{job.company}</h3>
           <p className="font-mono text-xs text-fog">{job.location}</p>
-          <p className="ml-auto font-mono text-xs text-amber">{job.period}</p>
+          <p className="ml-auto rounded-full border border-edge px-2.5 py-0.5 font-mono text-xs text-amber">{job.period}</p>
         </div>
         <p className="mt-1 text-sm text-fog">{job.role}</p>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { profile } from '@/data/profile';
 
 const links = [
@@ -13,6 +13,24 @@ const links = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('');
+
+  // scroll-spy: highlight the section currently in view
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) setActive(`#${e.target.id}`);
+        }
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    );
+    for (const l of links) {
+      const el = document.getElementById(l.href.slice(1));
+      if (el) io.observe(el);
+    }
+    return () => io.disconnect();
+  }, []);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-edge/60 bg-ink/70 backdrop-blur-md">
@@ -24,7 +42,12 @@ export default function Nav() {
         <ul className="hidden items-center gap-7 sm:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a href={l.href} className="text-sm text-fog transition-colors hover:text-amber">
+              <a
+                href={l.href}
+                className={`text-sm transition-colors hover:text-amber ${
+                  active === l.href ? 'text-amber' : 'text-fog'
+                }`}
+              >
                 {l.label}
               </a>
             </li>

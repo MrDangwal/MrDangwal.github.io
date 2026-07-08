@@ -16,7 +16,7 @@ export default function Skills() {
                 {s.items.map((item) => (
                   <li
                     key={item}
-                    className="rounded border border-edge px-2 py-1 text-[13px] text-snow/80"
+                    className="rounded border border-edge px-2 py-1 text-[13px] text-snow/80 transition-colors hover:border-amber/50 hover:text-snow"
                   >
                     {item}
                   </li>

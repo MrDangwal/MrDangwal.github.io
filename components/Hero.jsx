@@ -1,5 +1,6 @@
 import NeuralCanvas from './NeuralCanvas';
 import Reveal from './Reveal';
+import CountUp from './CountUp';
 import { profile, metrics } from '@/data/profile';
 
 export default function Hero() {
@@ -12,7 +13,7 @@ export default function Hero() {
       <div className="relative z-10 mx-auto w-full max-w-wrap px-5 pt-24">
         <Reveal>
           <p className="font-mono text-sm text-fog">
-            <span className="text-ember">&gt;&gt;&gt;</span> model.load(<span className="text-amber">&quot;abhishek_dangwal&quot;</span>)
+            <span className="text-ember">&gt;&gt;&gt;</span> model.load(<span className="text-amber">&quot;abhishek_dangwal&quot;</span>)<span className="cursor-blink">▍</span>
           </p>
         </Reveal>
 
@@ -20,7 +21,7 @@ export default function Hero() {
           <h1 className="mt-5 font-display text-5xl font-medium leading-[1.05] tracking-tight sm:text-7xl">
             {profile.name.split(' ')[0]}
             <br />
-            <span className="text-inferno">{profile.name.split(' ')[1]}</span>
+            <span className="text-inferno animate-inferno">{profile.name.split(' ')[1]}</span>
           </h1>
         </Reveal>
 
@@ -61,7 +62,7 @@ export default function Hero() {
               <div key={m.label}>
                 <dt className="sr-only">{m.label}</dt>
                 <dd className="font-display text-3xl font-medium text-snow sm:text-4xl">
-                  {m.value}
+                  <CountUp value={m.value} />
                 </dd>
                 <dd className="mt-1 text-xs leading-snug text-fog">{m.label}</dd>
               </div>
@@ -69,6 +70,14 @@ export default function Hero() {
           </dl>
         </Reveal>
       </div>
+
+      <a
+        href="#about"
+        aria-label="Scroll to About"
+        className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 font-mono text-[11px] text-fog/70 transition-colors hover:text-amber"
+      >
+        scroll <span className="inline-block animate-bounce">↓</span>
+      </a>
     </div>
   );
 }

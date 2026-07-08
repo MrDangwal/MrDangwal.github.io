@@ -5,7 +5,7 @@ import { projects } from '@/data/profile';
 export default function Projects() {
   return (
     <Section id="projects" eyebrow='agent.run("portfolio")' title="Selected projects">
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="dim-grid grid gap-5 sm:grid-cols-2">
         {projects.map((p, i) => (
           <Reveal key={p.title} delay={(i % 2) * 100}>
             <a
