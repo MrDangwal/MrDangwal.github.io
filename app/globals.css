@@ -178,6 +178,33 @@ body {
   animation-play-state: paused;
 }
 
+/* --- hero portrait: rotating rings + floating chips --- */
+.rot-slow {
+  animation: rot 9s linear infinite;
+}
+.rot-slower {
+  animation: rot 28s linear infinite;
+}
+@keyframes rot {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.chip-float {
+  @apply rounded-full border border-edge bg-panel/85 px-3 py-1 font-mono text-[11px] text-snow/85 backdrop-blur-sm;
+  box-shadow: 0 6px 24px -8px rgba(0, 0, 0, 0.65);
+  animation: float 5.5s ease-in-out infinite;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
 /* --- scanner sweep over the About portrait --- */
 .scanline {
   position: absolute;
@@ -229,7 +256,10 @@ button:focus-visible {
   .scanline,
   .marquee,
   .animate-inferno,
-  .cursor-blink {
+  .cursor-blink,
+  .rot-slow,
+  .rot-slower,
+  .chip-float {
     animation: none;
   }
   .scanline {
