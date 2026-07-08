@@ -90,26 +90,6 @@ export default function Hero() {
                 priority
                 className="relative aspect-square w-full rounded-full object-cover"
               />
-              {/* dashed orbit with traveling nodes */}
-              <div
-                aria-hidden="true"
-                className="rot-slower absolute -inset-7 rounded-full border border-dashed border-edge"
-              >
-                <span className="absolute -top-1 left-1/2 h-2 w-2 rounded-full bg-amber shadow-[0_0_10px_rgba(252,165,10,0.8)]" />
-                <span className="absolute -right-0.5 top-1/2 h-1.5 w-1.5 rounded-full bg-ember" />
-                <span className="absolute -left-0.5 bottom-1/4 h-1.5 w-1.5 rounded-full bg-magma" />
-              </div>
-              {/* floating capability chips */}
-              <span className="chip-float absolute -left-12 top-6">Agentic AI</span>
-              <span className="chip-float absolute -right-10 top-20" style={{ animationDelay: '1.3s' }}>
-                RAG
-              </span>
-              <span className="chip-float absolute -left-16 bottom-20" style={{ animationDelay: '2.1s' }}>
-                VLM fine-tuning
-              </span>
-              <span className="chip-float absolute -right-12 bottom-8" style={{ animationDelay: '0.7s' }}>
-                LLMOps
-              </span>
               {/* status pill */}
               <div className="absolute -bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-edge bg-ink/90 px-3.5 py-1.5 font-mono text-[11px] text-snow/90 backdrop-blur-sm">
                 <span aria-hidden="true" className="relative flex h-2 w-2">
